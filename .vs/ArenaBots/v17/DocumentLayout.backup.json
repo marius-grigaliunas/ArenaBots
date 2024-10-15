@@ -13,11 +13,11 @@
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 200,
+          "DockedWidth": 200,
           "SelectedChildIndex": 0,
           "Children": [
             {
@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "Code\\PlayerMovement.cs",
               "ToolTip": "C:\\Users\\ciama\\Desktop\\Game_Projects\\ArenaBots\\Code\\PlayerMovement.cs",
               "RelativeToolTip": "Code\\PlayerMovement.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAgwDoAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-12T13:31:01.781Z",
               "EditorCaption": ""

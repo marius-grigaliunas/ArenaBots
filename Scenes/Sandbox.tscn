@@ -3,41 +3,32 @@
 [ext_resource type="Script" path="res://Code/World.cs" id="1_wdrwq"]
 [ext_resource type="Script" path="res://Code/PlayerMovement.cs" id="2_cg4nr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_suc3t"]
-albedo_color = Color(1, 0.07, 0.3335, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7lp8w"]
-material = SubResource("StandardMaterial3D_suc3t")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1pkxx"]
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_578mk"]
 size = Vector2(10, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tfos3"]
 size = Vector3(10, 0.001, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r341r"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oovwq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xk26b"]
+size = Vector3(4, 0.5, 0.2)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_wdrwq")
 
-[node name="PlayerCube" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82071, 0)
-script = ExtResource("2_cg4nr")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerCube"]
-mesh = SubResource("BoxMesh_7lp8w")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCube"]
-shape = SubResource("BoxShape3D_1pkxx")
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.797584, 0.603208, 0, -0.603208, 0.797584, 0, 4, 4.235)
+transform = Transform3D(1, 0, 0, 0, 0.797584, 0.603208, 0, -0.603208, 0.797584, 0, 5.9521, 4.235)
 fov = 90.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.0668608, 0.989127, -0.13099, -0.449685, 0.147067, 0.880997, 0.890682, -1.75318e-08, 0.454628, -3.90784, 5.88753, 0.025279)
 
 [node name="WorldFloor" type="StaticBody3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldFloor"]
 mesh = SubResource("PlaneMesh_578mk")
@@ -45,3 +36,58 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldFloor"]
 shape = SubResource("BoxShape3D_tfos3")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4455, 3)
+script = ExtResource("2_cg4nr")
+mesh = NodePath("CSGBox3D")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player"]
+material = SubResource("StandardMaterial3D_r341r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_oovwq")
+
+[node name="Obstacle" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.25145, 0.272602, -4.07846)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+shape = SubResource("BoxShape3D_xk26b")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Obstacle"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+size = Vector3(4, 0.5, 0.2)
+
+[node name="Obstacle2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13777, 0.272602, -1.2675)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle2"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+shape = SubResource("BoxShape3D_xk26b")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Obstacle2"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+size = Vector3(4, 0.5, 0.2)
+
+[node name="Obstacle3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59182, 0.272602, -6.58821)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle3"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+shape = SubResource("BoxShape3D_xk26b")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Obstacle3"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+size = Vector3(4, 0.5, 0.2)
+
+[node name="Obstacle4" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.0347426, 0, 0.999396, 0, 1, 0, -0.999396, 0, -0.0347426, 1.08956, 0.229068, -3.93808)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle4"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+shape = SubResource("BoxShape3D_xk26b")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Obstacle4"]
+transform = Transform3D(1.05308, 0, 0, 0, 1.05308, 0, 0, 0, 1.05308, 0, 0, 0)
+size = Vector3(4, 0.5, 0.2)
