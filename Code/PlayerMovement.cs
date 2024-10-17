@@ -1,16 +1,34 @@
 using Godot;
+using System;
 
 public partial class PlayerMovement : CharacterBody3D
 {
     [Export] float movementSpeed = 5f;
     Vector3 velocity;
     [Export] CsgBox3D mesh;
+    private bool isCollidingThisFrame;
+    private bool wasCollidingLastFrame;
+    StandardMaterial3D mat1 = new StandardMaterial3D();
+
 
     public override void _PhysicsProcess(double delta)
     {
+        isCollidingThisFrame = CheckCollisionWithWall();
+
+        if (isCollidingThisFrame && !wasCollidingLastFrame)
+        {
+            //Start
+            StartCollisionWithWall();
+        }
+
+        if (!isCollidingThisFrame && wasCollidingLastFrame)
+        {
+            EndCollisionWithWall();
+        }
+
         velocity = Vector3.Zero;
 
-        if(Input.IsActionPressed("ui_up"))
+        if (Input.IsActionPressed("ui_up"))
         {
             velocity.Z = -1;
         }
@@ -27,37 +45,46 @@ public partial class PlayerMovement : CharacterBody3D
             velocity.X = 1;
         }
 
-        if(!IsOnFloor())
+        if (!IsOnFloor())
         {
             velocity.Y -= 9.8f * (float)delta;
         }
-
-        RedOnCollision();
 
         velocity = velocity.Normalized();
         Velocity = velocity * movementSpeed;
 
         MoveAndSlide();
+
+        wasCollidingLastFrame = isCollidingThisFrame;
     }
 
-    public void RedOnCollision()
+    public void StartCollisionWithWall()
     {
-        StandardMaterial3D mat1 = new StandardMaterial3D();
         mat1.AlbedoColor = Color.FromString("Red", Colors.Red);
-        Material mat = mesh.Material;
 
+        GD.Print("Collision started!");
+        mesh.MaterialOverride = mat1;
+    }
+
+    public void EndCollisionWithWall()
+    {
+        GD.Print("Collision Ended!");
+        mesh.MaterialOverride = null;
+    }
+
+    public bool CheckCollisionWithWall()
+    {
         for (int i = 0; i < GetSlideCollisionCount(); i++)
         {
             var collision = GetSlideCollision(i);
 
-            if(((Node)collision.GetCollider()).Name.ToString().StartsWith("Obstacle"))
+            if (((Node)collision.GetCollider()).Name.ToString().StartsWith("Obstacle"))
             {
-                mesh.MaterialOverride = mat1;
-            }
-            else
-            {
-                mesh.MaterialOverride = mat;
+
+                return true;
             }
         }
+
+        return false;
     }
 }
