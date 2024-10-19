@@ -1,17 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://2bmy8vbt80ot"]
+[gd_scene load_steps=3 format=3 uid="uid://2bmy8vbt80ot"]
 
 [ext_resource type="Script" path="res://Code/World.cs" id="1_wdrwq"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_o3rli"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_ysoia"]
+size = Vector2(10, 10)
 
-[sub_resource type="MeshTexture" id="MeshTexture_tsul8"]
-base_texture = SubResource("ImageTexture_o3rli")
-
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("bot")]
 script = ExtResource("1_wdrwq")
+bot = NodePath("Bot")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.797584, 0.603208, 0, -0.603208, 0.797584, 0, 5.9521, 4.235)
+transform = Transform3D(1, 0, 0, 0, 0.797584, 0.603208, 0, -0.603208, 0.797584, 1.43051e-06, 0.981119, 2.01814)
 fov = 90.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -25,6 +24,13 @@ offset_bottom = 45.0
 selected = 0
 item_count = 2
 popup/item_0/text = "Box"
-popup/item_0/icon = SubResource("MeshTexture_tsul8")
-popup/item_1/text = "Sphere"
+popup/item_1/text = "Cylinder"
 popup/item_1/id = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ysoia")
+
+[node name="Bot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0242605, 0.0542316, 0.0868111)
+
+[connection signal="item_selected" from="UI/OptionButton" to="." method="OnBaseOptionSelected"]
