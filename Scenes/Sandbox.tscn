@@ -12,15 +12,6 @@ transform = Transform3D(0.0668608, 0.989127, -0.13099, -0.449685, 0.147067, 0.88
 
 [node name="UI" type="Node" parent="."]
 
-[node name="OptionButton" type="OptionButton" parent="UI"]
-offset_right = 204.0
-offset_bottom = 45.0
-selected = 0
-item_count = 2
-popup/item_0/text = "Box"
-popup/item_1/text = "Cylinder"
-popup/item_1/id = 1
-
 [node name="Bot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0242605, 0.0542316, 0.0868111)
 
@@ -30,5 +21,3 @@ script = ExtResource("2_86kn3")
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 fov = 90.0
-
-[connection signal="item_selected" from="UI/OptionButton" to="." method="OnBaseOptionSelected"]
